@@ -1,3 +1,3 @@
-require(["jquery", "backbone"], function($, Backbone) {	
-    alert('test');
+require(["router/router"], function(router) {
+	//router.navigate("queryStockView", {trigger: true});
 });
