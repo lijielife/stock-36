@@ -1,7 +1,7 @@
-define(['jquery', 'backbone', 'collection/stockPriceCollection'], function($, Backbone, stockPriceCollection) {
+define(['jquery', 'backbone', 'template/queryStockTemplate', 'collection/stockPriceCollection'], function($, Backbone, queryStockTemplate, stockPriceCollection) {
 	var QueryStockView = Backbone.View.extend({
 		initialize: function() {
-			var template = $('<div>').attr('id', 'queryStockView').append('搜尋');
+			var template = queryStockTemplate.template;
 			this.$el.append(template);
 		},
 
@@ -12,8 +12,8 @@ define(['jquery', 'backbone', 'collection/stockPriceCollection'], function($, Ba
 		},
 
 		render: function() {
-			this.$el.find('div').hide();
-			this.$el.find('#queryStockView').show();
+			//this.$el.find('div').hide();
+			//this.$el.find('#queryStockView').show();
 		},
 
 		queryStockPrice: function() {
