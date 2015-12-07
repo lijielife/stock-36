@@ -1,8 +1,8 @@
 define(['jquery', 'backbone'], function($, Backbone) {
-	var StockPriceModel = Backbone.Model.extend({
+	var HistoryStockPriceModel = Backbone.Model.extend({
 		initialize: function() {
 		}
 	});
 
-	return StockPriceModel;
+	return HistoryStockPriceModel;
 }); 

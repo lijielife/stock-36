@@ -1,3 +1,3 @@
 require(['router/router'], function(router) {
-	router.navigate('queryStockView', {trigger: true});
+	router.navigate('historyStockPriceView', {trigger: true});
 });

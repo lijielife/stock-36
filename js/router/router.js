@@ -1,4 +1,4 @@
-define(['jquery', 'backbone'], function($, Backbone) {
+define(['jquery', 'backbone', 'text'], function($, Backbone, text) {
 	var Router = Backbone.Router.extend({
 
 		initialize: function() {
@@ -11,7 +11,6 @@ define(['jquery', 'backbone'], function($, Backbone) {
 
 		redirect: function(path) {
 			require(['view/' + path], function(view) {
-				view.render();
 			});
 		}
 	});
