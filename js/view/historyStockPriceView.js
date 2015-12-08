@@ -2,21 +2,27 @@ define(['jquery', 'backbone', 'text!template/historyStockPriceTemplate.html', 'c
 	$('#container').append(historyStockPriceTemplate);
 
 	var HistoryStockPriceView = Backbone.View.extend({
+
 		initialize: function() {
+			this.listenTo(historyStockPriceCollection, 'drawLineGraph', this.drawLineGraph);
 		},
 
 		el: '#historyStockPriceView',
 
 		events: {
-			'click #queryHistoryStockPrice': 'queryHistoryStockPrice'
+			'click button': 'queryHistoryStockPrice'
 		},
 
 		render: function() {
+			this.$el.show();
 		},
 
 		queryHistoryStockPrice: function() {
-			console.log('test');
 			historyStockPriceCollection.queryHistoryStockPrice();
+		},
+
+		drawLineGraph: function() {
+			alert('drawLineGraph');
 		}
 	});
 

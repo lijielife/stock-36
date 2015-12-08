@@ -11,6 +11,7 @@ define(['jquery', 'backbone', 'text'], function($, Backbone, text) {
 
 		redirect: function(path) {
 			require(['view/' + path], function(view) {
+				view.render();
 			});
 		}
 	});
