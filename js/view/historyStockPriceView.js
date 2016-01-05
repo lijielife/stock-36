@@ -1,16 +1,17 @@
-define(['jquery', 'backbone', 'text!template/historyStockPriceTemplate.html', 'collection/historyStockPriceCollection'], function($, Backbone, historyStockPriceTemplate, historyStockPriceCollection) {
-	$('#container').append(historyStockPriceTemplate);
+define(["jquery", "backbone", "text!template/historyStockPriceTemplate.html", "collection/historyStockPriceCollection"], function($, Backbone, historyStockPriceTemplate, historyStockPriceCollection) {
+	$("#container").append(historyStockPriceTemplate);
 
 	var HistoryStockPriceView = Backbone.View.extend({
 
 		initialize: function() {
-			this.listenTo(historyStockPriceCollection, 'drawLineGraph', this.drawLineGraph);
+			this.listenTo(historyStockPriceCollection, "drawLineGraph", this.drawLineGraph);
 		},
 
-		el: '#historyStockPriceView',
+		el: "#historyStockPriceView",
 
 		events: {
-			'click button': 'queryHistoryStockPrice'
+			"click button": "queryHistoryStockPrice",
+			"mousemove canvas": "getCoordinate"
 		},
 
 		render: function() {
@@ -22,7 +23,23 @@ define(['jquery', 'backbone', 'text!template/historyStockPriceTemplate.html', 'c
 		},
 
 		drawLineGraph: function() {
-			alert('drawLineGraph');
+			var lineGraphDivWidth = $("#lineGraphDiv").width();
+			$("#lineGraphDiv").append($("<canvas>").attr("id", "lineGraphCanvas").attr("width", lineGraphDivWidth).attr("height", lineGraphDivWidth/2).css("border", "1px solid"));
+
+			var lineGraphCanvasWidth = $("#lineGraphCanvas").width();
+			var lineGraphCanvasHeight = $("#lineGraphCanvas").height();
+
+			var c = document.getElementById("lineGraphCanvas");
+			var ctx = c.getContext("2d");			
+			ctx.moveTo(10, 10);
+			ctx.lineTo(lineGraphCanvasWidth-10, lineGraphCanvasHeight-10);
+			ctx.stroke();
+		},
+
+		getCoordinate: function(e) {
+			var x = e.clientX;
+			var y = e.clientY;
+			$("#coordinate ").text(x + "," + y);
 		}
 	});
 
