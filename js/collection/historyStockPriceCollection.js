@@ -21,11 +21,11 @@ define(["jquery", "backbone", "model/historyStockPriceModel"], function($, Backb
  					}
 				}
 
-				for (var i = 0; i < self.length; i++) {
+				/*for (var i = 0; i < self.length; i++) {
 					console.log(JSON.stringify(self.at(i)));
-				}
+				}*/
 				
-				self.trigger("drawLineGraph");
+				self.trigger("querySuccess");
 			});
 			
 			
