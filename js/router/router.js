@@ -1,4 +1,4 @@
-define(["jquery", "backbone", "text"], function($, Backbone, text) {
+define(["jquery", "backbone"], function($, Backbone) {
 	var Router = Backbone.Router.extend({
 
 		initialize: function() {

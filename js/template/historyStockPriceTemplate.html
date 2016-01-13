@@ -1,24 +1,20 @@
 <div id="historyStockPriceView" style="display:none" class="container">
+	<div class="jumbotron" >
+    <h2>標題</h2>
+    <p>描述</p> 
+    <button class="btn-info" id="queryButton">query</button>
 
-	<div class="jumbotron">
-    	<h2>波段操作</h2>
-    	<p>輸入股票代碼並點擊查詢，即顯示技術圖型</p> 
-    	<button class="btn-info" id="queryButton">查詢</button>
-  	</div>
     <div class="row">   
       <div class="col-sm-12" id="stockPriceInfo"></div>    
     </div>
 
-  	<div class="row">   
-    	<div class="col-sm-9" id="lineGraphDiv"></div>
-    	<div class="col-sm-3">
-        <p id="date"></p>
-        <p id="open"></p>
-        <p id="high"></p>
-        <p id="low"></p>
-        <p id="close"></p>
-        <p id="volume"></p>
-        <p id="coordinate"></p>
-      </div>    
-  	</div>
+    <div class="row">   
+      <div class="col-sm-9" id="lineGraphDiv">
+        <canvas id="lineGraphCanvas"></canvas>
+      </div>
+
+      <div class="col-sm-3"></div>    
+    </div>
+
+  </div>    
 </div>
