@@ -3,15 +3,16 @@ define(["jquery", "underscore", "backbone", "text!template/historyStockPriceTemp
 
 	var HistoryStockPriceView = Backbone.View.extend({
 
-		lineGraphCtx: undefined,
-		drawIndex: undefined,
-		drawCount: undefined,
-		drawContent: undefined,
-		drawHigh: undefined,
-		drawLow: undefined,
 		lineGraphCanvasWidth: undefined,
 		lineGraphCanvasHeight: undefined,
+		lineGraphCtx: undefined,
 		lineGraphData: undefined,
+
+		drawIndex: undefined,
+		drawCount: undefined,
+		//drawContent: undefined,
+		drawHigh: undefined,
+		drawLow: undefined,		
 
 		initialize: function() {
 			this.listenTo(historyStockPriceCollection, "querySuccess", this.showLineGraph);
@@ -53,7 +54,6 @@ define(["jquery", "underscore", "backbone", "text!template/historyStockPriceTemp
 		getDrawContent: function() {
 			this.drawIndex = 0;
 			this.drawCount = 200;
-			this.drawContent = historyStockPriceCollection.slice(this.drawIndex, this.drawIndex + this.drawCount + 1);
 			this.getDrawHighLow();
 		},
 
@@ -61,9 +61,9 @@ define(["jquery", "underscore", "backbone", "text!template/historyStockPriceTemp
 			this.drawHigh = 0;
 			this.drawLow = 100000;
 
-			for (var i = 0; i < this.drawContent.length-1; i++) {
-				var tempHigh = this.drawContent[i].get("high");
-				var tempLow = this.drawContent[i].get("low");
+			for (var i = this.drawIndex; i < this.drawIndex + this.drawCount; i++) {
+				var tempHigh = historyStockPriceCollection.at(i).get("high");
+				var tempLow = historyStockPriceCollection.at(i).get("low");
 
 				if ( tempHigh > this.drawHigh) {
 					this.drawHigh = tempHigh;
@@ -83,22 +83,22 @@ define(["jquery", "underscore", "backbone", "text!template/historyStockPriceTemp
 			this.lineGraphCanvasWidth = $("#lineGraphCanvas").width();
 			this.lineGraphCanvasHeight = $("#lineGraphCanvas").height();							
 
-			for (var i = 0; i < this.drawContent.length-1; i++) {				
+			for (var i = this.drawIndex; i < this.drawIndex + this.drawCount; i++) {				
 				var x = this.lineGraphCanvasWidth / this.drawCount * (this.drawCount-i-1);
 				var width = this.lineGraphCanvasWidth / this.drawCount;
 
-				var y = (this.drawHigh - this.drawContent[i].get("high")) / (this.drawHigh - this.drawLow) * this.lineGraphCanvasHeight;	
-				var height = (this.drawContent[i].get("high") - this.drawContent[i].get("low")) / (this.drawHigh - this.drawLow) * this.lineGraphCanvasHeight;
+				var y = (this.drawHigh - historyStockPriceCollection.at(i).get("high")) / (this.drawHigh - this.drawLow) * this.lineGraphCanvasHeight;	
+				var height = (historyStockPriceCollection.at(i).get("high") - historyStockPriceCollection.at(i).get("low")) / (this.drawHigh - this.drawLow) * this.lineGraphCanvasHeight;
 				//console.log(x, y, width, height);
 
-				this.drawContent[i].set("crossLineMinX", x);
-				this.drawContent[i].set("crossLineMaxX", x + width);
-				this.drawContent[i].set("crossLineX", x + width / 2);
-				this.drawContent[i].set("crossLineY", y + height / 2);
+				historyStockPriceCollection.at(i).set("crossLineMinX", x);
+				historyStockPriceCollection.at(i).set("crossLineMaxX", x + width);
+				historyStockPriceCollection.at(i).set("crossLineX", x + width / 2);
+				historyStockPriceCollection.at(i).set("crossLineY", y + height / 2);
 
-				if (this.drawContent[i].get("close") > this.drawContent[i+1].get("close")) {
+				if (historyStockPriceCollection.at(i).get("close") > historyStockPriceCollection.at(i+1).get("close")) {
 					this.lineGraphCtx.fillStyle = "#FF0000";
-				} else if (this.drawContent[i].get("close") < this.drawContent[i+1].get("close")) {
+				} else if (historyStockPriceCollection.at(i).get("close") < historyStockPriceCollection.at(i+1).get("close")) {
 					this.lineGraphCtx.fillStyle = "#00FF00";
 				} else {
 					this.lineGraphCtx.fillStyle = "#000000";
@@ -110,8 +110,8 @@ define(["jquery", "underscore", "backbone", "text!template/historyStockPriceTemp
 
 			this.showStockPriceInfo(0);
 
-			for (var i = 0; i < this.drawContent.length-1; i++) {			
-				console.log(JSON.stringify(this.drawContent[i]));
+			for (var i = this.drawIndex; i < this.drawIndex + this.drawCount; i++) {			
+				console.log(JSON.stringify(historyStockPriceCollection.at(i)));
 			}
 		},
 
@@ -121,15 +121,15 @@ define(["jquery", "underscore", "backbone", "text!template/historyStockPriceTemp
 				var canvasX = e.clientX - rect.left;
 				var canvasY = e.clientY - rect.top;
 
-				for (var i = 0; i < this.drawContent.length-1; i++) {
-					if (this.drawContent[i].get("crossLineMinX") < canvasX && this.drawContent[i].get("crossLineMaxX") > canvasX) {
+				for (var i = this.drawIndex; i < this.drawIndex + this.drawCount; i++) {
+					if (historyStockPriceCollection.at(i).get("crossLineMinX") < canvasX && historyStockPriceCollection.at(i).get("crossLineMaxX") > canvasX) {
 						this.showStockPriceInfo(i);
 						this.lineGraphCtx.putImageData(this.lineGraphData, 0, 0);
 						this.lineGraphCtx.beginPath();
-						this.lineGraphCtx.moveTo(this.drawContent[i].get("crossLineX"), 0);
-						this.lineGraphCtx.lineTo(this.drawContent[i].get("crossLineX"), this.lineGraphCanvasHeight);
-						this.lineGraphCtx.moveTo(0, this.drawContent[i].get("crossLineY"));
-						this.lineGraphCtx.lineTo(this.lineGraphCanvasWidth, this.drawContent[i].get("crossLineY"));
+						this.lineGraphCtx.moveTo(historyStockPriceCollection.at(i).get("crossLineX"), 0);
+						this.lineGraphCtx.lineTo(historyStockPriceCollection.at(i).get("crossLineX"), this.lineGraphCanvasHeight);
+						this.lineGraphCtx.moveTo(0, historyStockPriceCollection.at(i).get("crossLineY"));
+						this.lineGraphCtx.lineTo(this.lineGraphCanvasWidth, historyStockPriceCollection.at(i).get("crossLineY"));
 						this.lineGraphCtx.stroke();
 						break;
 					}						
@@ -140,12 +140,12 @@ define(["jquery", "underscore", "backbone", "text!template/historyStockPriceTemp
 		showStockPriceInfo: function(i) {
 			$("#stockPriceInfo").html("");
 			$("#stockPriceInfo")
-				.append(this.drawContent[i].get("date"))
-				.append("　開盤: " + this.drawContent[i].get("open"))
-				.append("　最高價: " + this.drawContent[i].get("high"))
-				.append("　最低價: " + this.drawContent[i].get("low"))
-				.append("　收盤價: " + this.drawContent[i].get("close"))
-				.append("　成交量: " + this.drawContent[i].get("volume"));
+				.append(historyStockPriceCollection.at(i).get("date"))
+				.append("　開盤: " + historyStockPriceCollection.at(i).get("open"))
+				.append("　最高價: " + historyStockPriceCollection.at(i).get("high"))
+				.append("　最低價: " + historyStockPriceCollection.at(i).get("low"))
+				.append("　收盤價: " + historyStockPriceCollection.at(i).get("close"))
+				.append("　成交量: " + historyStockPriceCollection.at(i).get("volume"));
 			//$("#coordinate").text(canvasX + ", " + canvasY);
 		}
 	});
