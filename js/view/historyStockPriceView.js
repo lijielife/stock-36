@@ -7,39 +7,46 @@ define(["jquery", "underscore", "backbone", "text!template/historyStockPriceTemp
 		lineGraphCanvasHeight: undefined,
 		lineGraphCtx: undefined,
 		lineGraphData: undefined,
-
 		drawIndex: undefined,
 		drawCount: undefined,
-		//drawContent: undefined,
 		drawHigh: undefined,
 		drawLow: undefined,		
 
 		initialize: function() {
 			this.listenTo(historyStockPriceCollection, "querySuccess", this.showLineGraph);
+			this.listenTo(historyStockPriceCollection, "queryFail", this.showError);
 			$(window).on("resize", _.bind(this.resizeCanvas, this));
 		},
 
 		el: "#historyStockPriceView",
 
 		events: {
-			"click #queryButton": "queryHistoryStockPrice",
+			"click #query": "queryHistoryStockPrice",
 			"mousemove #lineGraphCanvas": "drawCrossLine"
 		},
 
 		render: function() {
 			this.lineGraphCtx = document.getElementById("lineGraphCanvas").getContext("2d");			
 			this.$el.show();
-			this.resizeCanvas();
 		},
 
 		queryHistoryStockPrice: function() {
+			$("#stockError").hide();
+			$("#stockInfo").hide();
+			var stockSymbol = $("#stockSymbol").val().trim();
+			var stockType = $("[name=stockType]:checked").val();
+
 			historyStockPriceCollection.reset();
-			historyStockPriceCollection.queryHistoryStockPrice();
+			historyStockPriceCollection.queryHistoryStockPrice(stockSymbol + stockType);
+		},
+
+		showError: function() {
+			$("#stockError").show();
 		},
 
 		showLineGraph: function() {
-			$("#lineGraphCanvas").css("border", "1px solid");
-			this.getDrawContent();
+			$("#stockInfo").show();
+			this.resizeCanvas(); 
 		},
 
 		resizeCanvas: function() {		
@@ -97,11 +104,11 @@ define(["jquery", "underscore", "backbone", "text!template/historyStockPriceTemp
 				historyStockPriceCollection.at(i).set("crossLineY", y + height / 2);
 
 				if (historyStockPriceCollection.at(i).get("close") > historyStockPriceCollection.at(i+1).get("close")) {
-					this.lineGraphCtx.fillStyle = "#FF0000";
+					this.lineGraphCtx.fillStyle = "#E63F00";
 				} else if (historyStockPriceCollection.at(i).get("close") < historyStockPriceCollection.at(i+1).get("close")) {
-					this.lineGraphCtx.fillStyle = "#00FF00";
+					this.lineGraphCtx.fillStyle = "#008800";
 				} else {
-					this.lineGraphCtx.fillStyle = "#000000";
+					this.lineGraphCtx.fillStyle = "#444444";
 				}
 				this.lineGraphCtx.fillRect(x, y, width, height);				
 			}
@@ -130,6 +137,7 @@ define(["jquery", "underscore", "backbone", "text!template/historyStockPriceTemp
 						this.lineGraphCtx.lineTo(historyStockPriceCollection.at(i).get("crossLineX"), this.lineGraphCanvasHeight);
 						this.lineGraphCtx.moveTo(0, historyStockPriceCollection.at(i).get("crossLineY"));
 						this.lineGraphCtx.lineTo(this.lineGraphCanvasWidth, historyStockPriceCollection.at(i).get("crossLineY"));
+						this.lineGraphCtx.strokeStyle = "#808080";
 						this.lineGraphCtx.stroke();
 						break;
 					}						
@@ -137,15 +145,13 @@ define(["jquery", "underscore", "backbone", "text!template/historyStockPriceTemp
 			}	
 		},
 
-		showStockPriceInfo: function(i) {
-			$("#stockPriceInfo").html("");
-			$("#stockPriceInfo")
-				.append(historyStockPriceCollection.at(i).get("date"))
-				.append("　開盤: " + historyStockPriceCollection.at(i).get("open"))
-				.append("　最高價: " + historyStockPriceCollection.at(i).get("high"))
-				.append("　最低價: " + historyStockPriceCollection.at(i).get("low"))
-				.append("　收盤價: " + historyStockPriceCollection.at(i).get("close"))
-				.append("　成交量: " + historyStockPriceCollection.at(i).get("volume"));
+		showStockPriceInfo: function(i) {	
+			$("#date").html("交易日: " + historyStockPriceCollection.at(i).get("date"))
+			$("#open").html("開盤價: " + historyStockPriceCollection.at(i).get("open"))
+			$("#high").html("最高價: " + historyStockPriceCollection.at(i).get("high"))
+			$("#low").html("最低價: " + historyStockPriceCollection.at(i).get("low"))
+			$("#close").html("收盤價: " + historyStockPriceCollection.at(i).get("close"))
+			$("#volume").html("成交量: " + historyStockPriceCollection.at(i).get("volume"));
 			//$("#coordinate").text(canvasX + ", " + canvasY);
 		}
 	});
