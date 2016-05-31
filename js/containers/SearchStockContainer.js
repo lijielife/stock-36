@@ -1,18 +1,14 @@
 import { connect } from 'react-redux'
-import { addStockInfo } from '../actions'
+import { addStockInfos, filterStockInfos } from '../actions'
 import SearchStockComponent from '../components/SearchStockComponent'
 
-const aaa = function(bbb) {
-	console.log(bbb)
-}
-
-const mapStateToProps = function(state) {
-	//console.log(state)
-    return {stockInfoReducer: aaa(state)}
-}
+const mapStateToProps = state => ({
+    stockInfoReducer: state.stockInfoReducer
+})
 
 const mapDispatchToProps = dispatch => ({
-	addStockInfo: stockInfo => dispatch(addStockInfo(stockInfo))	
+	addStockInfos: stockInfos => dispatch(addStockInfos(stockInfos)),
+	filterStockInfos: filter => dispatch(filterStockInfos(filter))
 })
 
 const SearchStockContainer = connect(

@@ -1,24 +1,27 @@
-const stockInfo = (state, action) => {
-	switch (action.type) {
-		case 'ADD_STOCK_INFO':
-			return {
-				symbol: action.symbol,
-				name: action.name,
-				market: action.market,
-				industry: action.industry
-			}
-		default:
-			return state
-	}
-}
-
 const stockInfoReducer = (state = [], action) => {
 	switch (action.type) {
-		case 'ADD_STOCK_INFO':
-			return [
-				...state, 
-				stockInfo(undefined, action)
-			]
+		case 'ADD_STOCK_INFOS':
+			return action.stockInfos.map(stockInfo => ({
+				symbol: stockInfo.symbol,
+				name: stockInfo.name,
+				market: stockInfo.market,
+				industry: stockInfo.industry
+			}))	
+		case 'FILTER_STOCK_INFOS':			
+			return state.map(stockInfo => {				
+				if (!action.filter) {				
+					return Object.assign({}, stockInfo, {
+						match: false
+					}) }
+				else if (stockInfo.symbol.match(`^${action.filter}`)){
+					return Object.assign({}, stockInfo, {
+						match: true
+					})}
+				else
+					return Object.assign({}, stockInfo, {
+						match: false
+					})
+			})
 		default:
 			return state
 	}

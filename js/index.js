@@ -7,9 +7,9 @@ import StockApp from './components/StockApp'
 
 let store = createStore(stockReducers)
 
-/*store.subscribe(() =>
+store.subscribe(() =>
   console.log(store.getState())
-)*/
+)
 
 render(
 	<Provider store={store}>
