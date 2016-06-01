@@ -9,14 +9,14 @@ const stockInfoReducer = (state = [], action) => {
 			}))	
 		case 'FILTER_STOCK_INFOS':			
 			return state.map(stockInfo => {				
-				if (!action.filter) {				
+				if (!action.filter)				
 					return Object.assign({}, stockInfo, {
 						match: false
-					}) }
-				else if (stockInfo.symbol.match(`^${action.filter}`)){
+					})
+				else if (stockInfo.symbol.match(`^${action.filter}`))
 					return Object.assign({}, stockInfo, {
 						match: true
-					})}
+					})
 				else
 					return Object.assign({}, stockInfo, {
 						match: false
