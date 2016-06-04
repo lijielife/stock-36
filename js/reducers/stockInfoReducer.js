@@ -5,6 +5,7 @@ const stockInfoReducer = (state = [], action) => {
 				symbol: stockInfo.symbol,
 				name: stockInfo.name,
 				market: stockInfo.market,
+				marketAlias: stockInfo.marketAlias,
 				industry: stockInfo.industry
 			}))	
 		case 'FILTER_STOCK_INFOS':			

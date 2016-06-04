@@ -1,5 +1,5 @@
 import { connect } from 'react-redux'
-import { fetchStockInfos, filterStockInfos } from '../actions'
+import { fetchStockInfos, filterStockInfos, fetchStockPrice } from '../actions'
 import SearchStockComponent from '../components/SearchStockComponent'
 
 const mapStateToProps = state => ({
@@ -8,7 +8,8 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
 	fetchStockInfos: () => dispatch(fetchStockInfos()),
-	filterStockInfos: filter => dispatch(filterStockInfos(filter))
+	filterStockInfos: filter => dispatch(filterStockInfos(filter)),
+	fetchStockPrice: search => dispatch(fetchStockPrice(search))
 })
 
 const SearchStockContainer = connect(
