@@ -19,7 +19,7 @@ class SearchStockComponent extends Component {
 	}
 
 	render() {
-		const { stockInfoReducer, filterStockInfos, fetchStockPrice } = this.props
+		const { stockInfoReducer, filterStockInfos } = this.props
 
 		let input
 		
@@ -35,11 +35,11 @@ class SearchStockComponent extends Component {
 
 		if (stockInfoReducer.length)
 			return (
-			    <div>		  
-			    	<input onChange={e => filterStockInfos(e.target.value.trim())} ref={node => input = node} />
-			    	<button onClick={() => this.fetchStockPrice(input.value)}></button>
-			    	{matchResult}
-			    </div>			    
+				<div>		  
+					<input onChange={e => filterStockInfos(e.target.value.trim())} ref={node => input = node} />
+					<button onClick={() => this.fetchStockPrice(input.value)}></button>
+					{matchResult}
+				</div>				
 			)
 		else
 			return (

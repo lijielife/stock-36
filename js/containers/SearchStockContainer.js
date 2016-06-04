@@ -3,7 +3,7 @@ import { fetchStockInfos, filterStockInfos, fetchStockPrice } from '../actions'
 import SearchStockComponent from '../components/SearchStockComponent'
 
 const mapStateToProps = state => ({
-    stockInfoReducer: state.stockInfoReducer
+	stockInfoReducer: state.stockInfoReducer
 })
 
 const mapDispatchToProps = dispatch => ({
