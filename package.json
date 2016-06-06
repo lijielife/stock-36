@@ -3,8 +3,8 @@
   "version": "1.0.0",
   "description": "Stock backtesting.",
   "scripts": {
-    "build": "webpack -p --progress",
-    "dev": "webpack-dev-server --inline --hot --content-base --devtool cheap-module-eval-source-map --progress",
+    "pro": "webpack --progress --config webpack.config.pro.js",
+    "dev": "webpack-dev-server --progress --inline --hot --devtool cheap-module-eval-source-map",
     "eslint": "eslint js"
   },
   "author": "markuslee",

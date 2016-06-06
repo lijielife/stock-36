@@ -49,7 +49,7 @@ class SearchStockComponent extends Component {
 }
 
 SearchStockComponent.propTypes = {
-	stockInfoReducer: PropTypes.func.isRequired,
+	stockInfoReducer: PropTypes.array.isRequired,
 	fetchStockInfos: PropTypes.func.isRequired,
 	filterStockInfos: PropTypes.func.isRequired,
 	fetchStockPrice: PropTypes.func.isRequired
