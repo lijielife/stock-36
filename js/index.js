@@ -8,9 +8,9 @@ import StockApp from './components/StockApp'
 
 const store = createStore(stockReducers, applyMiddleware(thunk))
 
-store.subscribe(() =>
+/*store.subscribe(() =>
   console.log(store.getState())
-)
+)*/
 
 render(
 	<Provider store={store}>

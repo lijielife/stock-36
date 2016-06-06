@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { Component, PropTypes } from 'react'
 
 class SearchStockComponent extends Component {	
 
@@ -46,6 +46,13 @@ class SearchStockComponent extends Component {
 				<div>Fetch Data...</div>
 			)
 	}
+}
+
+SearchStockComponent.propTypes = {
+	stockInfoReducer: PropTypes.func.isRequired,
+	fetchStockInfos: PropTypes.func.isRequired,
+	filterStockInfos: PropTypes.func.isRequired,
+	fetchStockPrice: PropTypes.func.isRequired
 } 
 	
 export default SearchStockComponent
