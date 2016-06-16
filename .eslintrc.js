@@ -10,7 +10,16 @@ module.exports = {
         "sourceType": "module"
     },
     "extends": ["eslint:recommended", "plugin:react/recommended"],
-    "rules": {       
+    "rules": {   
+        "indent": [
+            "error",
+            "tab",
+            {"SwitchCase": 1}
+        ],
+        "linebreak-style": [
+            "error", 
+            "unix"
+        ],    
         "quotes": [
             "error",
             "single"
