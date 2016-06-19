@@ -7,23 +7,23 @@ class SearchStockComponent extends Component {
 		fetchStockInfos()
 	}
 
-	fetchStockPrice(symbol) {
-		const { stockInfoReducer, fetchStockPrice } = this.props
+	fetchStockPrices(symbol) {
+		const { stockInfosReducer, fetchStockPrices } = this.props
 
-		for (let i = 0; i < stockInfoReducer.length; i++) {
-			if (stockInfoReducer[i].symbol == symbol) {
-				fetchStockPrice(symbol + stockInfoReducer[i].marketAlias)
+		for (let i = 0; i < stockInfosReducer.length; i++) {
+			if (stockInfosReducer[i].symbol == symbol) {
+				fetchStockPrices(symbol + stockInfosReducer[i].marketAlias)
 				break
 			}
 		}
 	}
 
 	render() {
-		const { stockInfoReducer, filterStockInfos } = this.props
+		const { stockInfosReducer, filterStockInfos } = this.props
 
 		let input
 		
-		const matchResult = stockInfoReducer.map(stockInfo => {
+		const matchResult = stockInfosReducer.map(stockInfo => {
 			if (stockInfo.match)
 				return (
 					<p key={stockInfo.symbol}>
@@ -33,11 +33,11 @@ class SearchStockComponent extends Component {
 				)		
 		})
 
-		if (stockInfoReducer.length)
+		if (stockInfosReducer.length)
 			return (
 				<div>		  
 					<input onChange={e => filterStockInfos(e.target.value.trim())} ref={node => input = node} />
-					<button onClick={() => this.fetchStockPrice(input.value)}></button>
+					<button onClick={() => this.fetchStockPrices(input.value)}></button>
 					{matchResult}
 				</div>				
 			)
@@ -49,10 +49,10 @@ class SearchStockComponent extends Component {
 }
 
 SearchStockComponent.propTypes = {
-	stockInfoReducer: PropTypes.array.isRequired,
+	stockInfosReducer: PropTypes.array.isRequired,
 	fetchStockInfos: PropTypes.func.isRequired,
 	filterStockInfos: PropTypes.func.isRequired,
-	fetchStockPrice: PropTypes.func.isRequired
+	fetchStockPrices: PropTypes.func.isRequired
 } 
 	
 export default SearchStockComponent

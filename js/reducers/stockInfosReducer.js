@@ -1,4 +1,4 @@
-const stockInfoReducer = (state = [], action) => {
+const stockInfosReducer = (state = [], action) => {
 	switch (action.type) {
 		case 'ADD_STOCK_INFOS':
 			return action.stockInfos.map(stockInfo => ({
@@ -14,7 +14,7 @@ const stockInfoReducer = (state = [], action) => {
 					return Object.assign({}, stockInfo, {
 						match: false
 					})
-				else if (stockInfo.symbol.match(`^${action.filter}`))
+				else if (stockInfo.symbol.match(`${action.filter}`))
 					return Object.assign({}, stockInfo, {
 						match: true
 					})
@@ -28,4 +28,4 @@ const stockInfoReducer = (state = [], action) => {
 	}
 }
 
-export default stockInfoReducer
+export default stockInfosReducer
