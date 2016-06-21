@@ -9,7 +9,7 @@ export const fetchStockPrices = search =>
 					rawData = rawData.body.split('\n')
 
 					for (let i = 1; i < rawData.length-1; i++) {
-						stockPrice = rawData[i].split(',');
+						stockPrice = rawData[i].split(',')
 						if (stockPrice[5] != '000') {
 							stockPrices.push({
 								date: stockPrice[0], 
@@ -23,6 +23,7 @@ export const fetchStockPrices = search =>
 						}
 					}
 					dispatch(addStockPrices(stockPrices))
+					dispatch(setShowPrices())
 				}
 			})
 			.catch(ex => alert(`fetch error: ${ex.message}`))
@@ -30,4 +31,13 @@ export const fetchStockPrices = search =>
 export const addStockPrices = stockPrices => ({
 	type: 'ADD_STOCK_PRICES',
 	stockPrices: stockPrices
+})
+
+export const setLineCount = lineCount => ({
+	type: 'SET_LINE_COUNT',
+	lineCount: lineCount
+})
+
+export const setShowPrices = () => ({
+	type: 'SET_SHOW_PRICES'
 })

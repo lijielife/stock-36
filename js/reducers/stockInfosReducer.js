@@ -1,13 +1,7 @@
 const stockInfosReducer = (state = [], action) => {
 	switch (action.type) {
 		case 'ADD_STOCK_INFOS':
-			return action.stockInfos.map(stockInfo => ({
-				symbol: stockInfo.symbol,
-				name: stockInfo.name,
-				market: stockInfo.market,
-				marketAlias: stockInfo.marketAlias,
-				industry: stockInfo.industry
-			}))	
+			return action.stockInfos
 		case 'FILTER_STOCK_INFOS':			
 			return state.map(stockInfo => {				
 				if (!action.filter)				
