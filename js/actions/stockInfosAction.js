@@ -1,6 +1,6 @@
 export const fetchStockInfos = () =>
 	dispatch =>
-		fetch('http://localhost:8000/stockInfos')
+		fetch(`http://${__HOST__}/stockInfos`)
 			.then(response => response.json())
 			.then(stockInfos => {
 

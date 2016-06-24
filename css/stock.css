@@ -1,4 +1,97 @@
+@import '~normalize.css';
+@import '~icono';
+
+@keyframes cycle {
+    0% {
+    	transform:rotate(0deg);
+    }
+    100% {
+    	transform:rotate(359deg);
+    }
+}
+
+.refresh {
+	position: absolute;
+	top: 50vh; 
+	left: 50vw;
+	color: black;
+	border-width: 3px;
+	animation: cycle 2s linear 0s infinite;
+}
+
+.filter-container {
+	position: relative;
+}
+
+.filter-input {
+	border: 2px solid #bdc3c7;
+	border-radius: 5px;
+	width: 100%;
+	padding: 10px;
+	margin: 20px 0 0 0;
+	box-sizing: border-box;
+	transition: all .5s;	
+}
+
+.filter-input:hover {	
+	border-color: #3498db;
+}
+
+.filter-input:focus {
+	border-color: #3498db;
+	outline: 0;	
+}
+
+.filter-result-container{
+	position: absolute;
+	width: 100%;
+	height: 30vh;
+	border: 1px solid #bdc3c7;
+	overflow: hidden;
+}
+
+.filter-result {
+	padding: 0 40px 0 0;
+	margin: 0;
+	width: 100%;
+	height: 100%;
+	overflow-y: auto;
+	list-style: none;
+}
+
+.filter-result > li {
+	padding: 10px;
+}
+
+@media screen and (max-width: 767px) {
+	.filter-container {
+		width: 80%;
+		margin-left: 10%;
+	}
+}
+
+@media (min-width: 768px) {
+	.filter-container {
+		width: 70%;
+		margin-left: 15%;
+	}
+}
+
+@media (min-width: 992px) {
+	.filter-container {
+		width: 50%;
+		margin-left: 25%;
+	}
+}
+
+@media (min-width: 1200px) {
+	.filter-container {
+		width: 40%;
+		margin-left: 30%;
+	} 
+}
+
 .svg-container {
-	background-color: pink;
+	/*background-color: pink;*/
 	height: 50vh;
 }

@@ -8,7 +8,7 @@ class ShowStockComponent extends Component {
 		super(props)
 		this.svgWidth
 		this.svgHeight
-		this.lineWidth = 10
+		this.lineWidth = 5
 	}
 	
 	componentDidMount() {
@@ -17,6 +17,7 @@ class ShowStockComponent extends Component {
 	}
 
 	computeLineCount() {
+		//console.log(window.innerWidth)
 		const { setLineCount, setShowPrices } = this.props
 		this.svgWidth = ReactDOM.findDOMNode(this).clientWidth
 		this.svgHeight = ReactDOM.findDOMNode(this).clientHeight

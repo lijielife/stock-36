@@ -2,54 +2,59 @@ import React, { Component, PropTypes } from 'react'
 
 class SearchStockComponent extends Component {	
 
-	componentWillMount() {
+	constructor(props) {
+		super(props)
+		this.filter
+	}
+
+	componentWillMount() {		
 		const { fetchStockInfos } = this.props
 		fetchStockInfos()
 	}
 
-	fetchStockPrices(symbol) {
-		const { stockInfosReducer, fetchStockPrices } = this.props
+	componentDidUpdate() {		
+		const { stockInfosReducer, fetchStockPrices } = this.props, { matches } = stockInfosReducer
+		
+		if (matches.length == 1 && this.filter == matches[0].symbol)
+			fetchStockPrices(matches[0].symbol + matches[0].marketAlias)	
+	}
 
-		for (let i = 0; i < stockInfosReducer.length; i++) {
-			if (stockInfosReducer[i].symbol == symbol) {
-				fetchStockPrices(symbol + stockInfosReducer[i].marketAlias)
-				break
-			}
-		}
+	filterStockInfos(filter) {
+		const { filterStockInfos } = this.props
+		filterStockInfos(filter)
+		this.filter = filter
 	}
 
 	render() {
-		const { stockInfosReducer, filterStockInfos } = this.props
+		const { stockInfosReducer } = this.props, { stockInfos, matches } = stockInfosReducer
 
-		let input
-		
-		const matchResult = stockInfosReducer.map(stockInfo => {
-			if (stockInfo.match)
-				return (
-					<p key={stockInfo.symbol}>
-						{stockInfo.symbol}
-						{' '}
-					</p>
-				)		
-		})
+		const matchResult = matches.map(match => (
+			<li key={match.symbol}>
+				{match.symbol}
+				{' '}
+			</li>
+		))
 
-		if (stockInfosReducer.length)
-			return (
-				<div>		  
-					<input onChange={e => filterStockInfos(e.target.value.trim())} ref={node => input = node} />
-					<button onClick={() => this.fetchStockPrices(input.value)}></button>
-					{matchResult}
-				</div>				
+		if (stockInfos.length)
+			return (		
+				<div className="filter-container">
+					<input className="filter-input" onChange={e => this.filterStockInfos(e.target.value.trim())} />	
+					<div className="filter-result-container">
+						<ul className="filter-result">
+							{matchResult}
+						</ul>
+					</div>						
+				</div>					
 			)
 		else
 			return (
-				<div>Fetch Data...</div>
+				<div className="icono-reset refresh"></div>
 			)
 	}
 }
 
 SearchStockComponent.propTypes = {
-	stockInfosReducer: PropTypes.array.isRequired,
+	stockInfosReducer: PropTypes.object.isRequired,
 	fetchStockInfos: PropTypes.func.isRequired,
 	filterStockInfos: PropTypes.func.isRequired,
 	fetchStockPrices: PropTypes.func.isRequired
