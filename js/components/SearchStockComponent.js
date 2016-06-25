@@ -1,4 +1,5 @@
 import React, { Component, PropTypes } from 'react'
+import FilterStockContainer from '../containers/FilterStockContainer'
 
 class SearchStockComponent extends Component {	
 
@@ -26,24 +27,13 @@ class SearchStockComponent extends Component {
 	}
 
 	render() {
-		const { stockInfosReducer } = this.props, { stockInfos, matches } = stockInfosReducer
-
-		const matchResult = matches.map(match => (
-			<li key={match.symbol}>
-				{match.symbol}
-				{' '}
-			</li>
-		))
+		const { stockInfosReducer } = this.props, { stockInfos } = stockInfosReducer
 
 		if (stockInfos.length)
 			return (		
 				<div className="filter-container">
 					<input className="filter-input" onChange={e => this.filterStockInfos(e.target.value.trim())} />	
-					<div className="filter-result-container">
-						<ul className="filter-result">
-							{matchResult}
-						</ul>
-					</div>						
+					<FilterStockContainer />				
 				</div>					
 			)
 		else
