@@ -1,17 +1,19 @@
-const stockPricesReducer = (state = {}, action) => {
+const stockPricesReducer = (state = {stockPrices: []}, action) => {
 	switch (action.type) {
 		case 'ADD_STOCK_PRICES':
 			return Object.assign({}, state, {
 				stockPrices: action.stockPrices,
+				stockInfo: action.stockInfo,
 				start: 0
 			})
 		case 'SET_LINE_COUNT':
 			return Object.assign({}, state, {
 				lineCount: action.lineCount
 			})
-		case 'SET_SHOW_PRICES':
-			if (state.hasOwnProperty('start') && state.hasOwnProperty('lineCount')) {
-				const { start, lineCount, stockPrices } = state
+		case 'SET_SHOW_PRICES':	{		
+			const { stockPrices, start, lineCount } = state
+
+			if (stockPrices.length) {
 				let showPrices = [], highest = 0, lowest = 100000
 
 				for (let i = start; i < start + lineCount; i++) {
@@ -26,7 +28,12 @@ const stockPricesReducer = (state = {}, action) => {
 					lowest: lowest
 				})
 			} else 
-				return state		
+				return state
+		}	
+		case 'RESET_SHOW_PRICES':
+			return Object.assign({}, {
+				lineCount: state.lineCount
+			})
 		default:
 			return state
 	}

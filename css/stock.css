@@ -21,6 +21,7 @@
 
 .filter-container {
 	position: relative;
+	padding-bottom: 10vh;
 }
 
 .filter-input {
@@ -58,37 +59,55 @@
 
 .filter-result > li {
 	padding: 10px;
+	cursor:pointer;
+}
+
+.svg-container {
+	height: 50vh;
+}
+
+.svg-border {
+	fill: white;
+	stroke: #bdc3c7;
+	stroke-width: 2;
+}
+
+.svg-rise {
+	fill: #FF3333;
+}
+
+.svg-fall {
+	fill: #33FF33;
+}
+
+.svg-flat {
+	fill: #888888;
 }
 
 @media screen and (max-width: 767px) {
-	.filter-container {
+	.container {
 		width: 80%;
 		margin-left: 10%;
 	}
 }
 
 @media (min-width: 768px) {
-	.filter-container {
+	.container {
 		width: 70%;
 		margin-left: 15%;
 	}
 }
 
 @media (min-width: 992px) {
-	.filter-container {
+	.container {
 		width: 50%;
 		margin-left: 25%;
 	}
 }
 
 @media (min-width: 1200px) {
-	.filter-container {
+	.container {
 		width: 40%;
 		margin-left: 30%;
 	} 
-}
-
-.svg-container {
-	/*background-color: pink;*/
-	height: 50vh;
 }

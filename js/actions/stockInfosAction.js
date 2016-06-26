@@ -10,7 +10,6 @@ export const fetchStockInfos = () =>
 				
 				dispatch(addStockInfos(stockInfos))
 			})
-			.catch(ex => alert(`fetch error: ${ex.message}`))
 
 export const addStockInfos = stockInfos => ({
 	type: 'ADD_STOCK_INFOS',
@@ -20,4 +19,8 @@ export const addStockInfos = stockInfos => ({
 export const filterStockInfos = filter => ({
 	type: 'FILTER_STOCK_INFOS',
 	filter: filter
+})
+
+export const resetMatches = () => ({
+	type: 'RESET_MATCHES'
 })

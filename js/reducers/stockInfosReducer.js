@@ -1,4 +1,4 @@
-const stockInfosReducer = (state = {stockInfos: [], matches: []}, action) => {
+const stockInfosReducer = (state = {stockInfos: [], filter: '', matches: []}, action) => {
 	switch (action.type) {
 		case 'ADD_STOCK_INFOS':
 			return Object.assign({}, state, {
@@ -15,9 +15,14 @@ const stockInfosReducer = (state = {stockInfos: [], matches: []}, action) => {
 				})			
 
 			return Object.assign({}, state, {
+				filter: action.filter,
 				matches: matches
 			})
 		}
+		case 'RESET_MATCHES':
+			return Object.assign({}, state, {
+				matches: []
+			})
 		default:
 			return state
 	}

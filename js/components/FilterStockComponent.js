@@ -1,12 +1,13 @@
 import React, { PropTypes } from 'react'
 
-const FilterStockComponent = ({ stockInfosReducer }) => {
+const FilterStockComponent = ({ stockInfosReducer, filterStockInfos }) => {
 	const { matches } = stockInfosReducer
 
 	const matchResult = matches.map(match => (
-		<li key={match.symbol}>
+		<li key={match.symbol} onClick={() => filterStockInfos(match.symbol)}>
 			{match.symbol}
 			{' '}
+			{match.name}
 		</li>
 	))
 
@@ -24,7 +25,8 @@ const FilterStockComponent = ({ stockInfosReducer }) => {
 }
 
 FilterStockComponent.propTypes = {
-	stockInfosReducer: PropTypes.object.isRequired
+	stockInfosReducer: PropTypes.object.isRequired,
+	filterStockInfos: PropTypes.func.isRequired
 } 
 
 export default FilterStockComponent
