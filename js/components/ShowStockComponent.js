@@ -26,19 +26,19 @@ class ShowStockComponent extends Component {
 	}
 
 	render() {
-		const { stockPricesReducer } = this.props, { showPrices, highest, lowest, stockInfo } = stockPricesReducer, lineGraph = [], showInfo = []		
-
+		const { stockPricesReducer } = this.props, { showPrices, highest, lowest, lineCount, stockInfo } = stockPricesReducer, lineGraph = [], showInfo = []		
 		if (showPrices) { 	
-			lineGraph.push(<rect key={'svgStroke'} x={0} y={0} width={this.svgWidth} height={this.svgHeight} className="svg-border" />)
 
-			showPrices.map((showPrice, index) => {
-				let x, y, width, height, color
-				x = this.svgWidth - this.lineWidth*(index+1)
-				y = (highest - showPrice.high) / (highest - lowest) * this.svgHeight
-				width = this.lineWidth
+			lineGraph.push(<rect key={'svgStroke'} x={0} y={0} width={this.svgWidth} height={this.svgHeight} className="svg-border" />)
+			
+			let x, y, width = (this.svgWidth - 4) / lineCount, height, color
+
+			showPrices.map((showPrice, index) => {				
+				x = this.svgWidth -2 - width * (index + 1)
+				y = 2 + (highest - showPrice.high) / (highest - lowest) * (this.svgHeight - 4)				
 
 				if (showPrice.high > showPrice.low)
-					height = (showPrice.high - showPrice.low) / (highest - lowest) * this.svgHeight						
+					height = (showPrice.high - showPrice.low) / (highest - lowest) * (this.svgHeight - 4)
 				else
 					height = 1
 
@@ -49,7 +49,9 @@ class ShowStockComponent extends Component {
 				else
 					color = 'svg-flat'
 
-				lineGraph.push(<rect key={showPrice.date} x={x} y={y} width={width} height={height} className={color} />)
+				lineGraph.push(<rect key={`${showPrice.date}top`} x={x} y={2} width={width} height={y-2} className="svg-remaining" />)
+				lineGraph.push(<rect key={showPrice.date} x={x} y={y} width={width-2} height={height} className={color} />)
+				lineGraph.push(<rect key={`${showPrice.date}bottom`} x={x} y={y+height} width={width} height={this.svgHeight-y-height-2} className="svg-remaining" />)
 			})
 
 			showInfo.push(

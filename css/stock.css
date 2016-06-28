@@ -67,9 +67,9 @@
 }
 
 .svg-border {
-	fill: white;
+	fill-opacity: 0;
 	stroke: #bdc3c7;
-	stroke-width: 2;
+	stroke-width: 4;
 }
 
 .svg-rise {
@@ -82,6 +82,10 @@
 
 .svg-flat {
 	fill: #888888;
+}
+
+.svg-remaining {
+	fill: #FFFFFF;
 }
 
 @media screen and (max-width: 767px) {
