@@ -31,7 +31,7 @@ class ShowStockComponent extends Component {
 	}
 
 	render() {
-		const { stockPricesReducer } = this.props, { showPrices, highest, lowest, lineCount, stockInfo, priceDetail } = stockPricesReducer, lineGraph = []
+		const { stockPricesReducer } = this.props, { fetchFlag, showPrices, highest, lowest, lineCount, stockInfo, priceDetail } = stockPricesReducer, lineGraph = []
 		let showDetail
 
 		if (showPrices) { 	
@@ -94,8 +94,10 @@ class ShowStockComponent extends Component {
 				showDetail = (
 					<div>
 						<p className="show-detail">{'日期: '}{priceDetail.date}</p>
-						<p className="show-detail">{'收盤: '}{priceDetail.close}</p>
 						<p className="show-detail">{'開盤: '}{priceDetail.open}</p>
+						<p className="show-detail">{'收盤: '}{priceDetail.close}</p>
+						<p className="show-detail">{'昨收: '}{priceDetail.prevClose}</p>
+						<p className="show-detail">{'漲跌: '}{priceDetail.gain}</p>
 						<p className="show-detail">{'最高: '}{priceDetail.high}</p>
 						<p className="show-detail">{'最低: '}{priceDetail.low}</p>
 						<p className="show-detail">{'成交: '}{priceDetail.volume}</p>
@@ -105,8 +107,10 @@ class ShowStockComponent extends Component {
 				showDetail = (
 					<div>
 						<p className="show-detail">{'日期: '}</p>
-						<p className="show-detail">{'收盤: '}</p>
 						<p className="show-detail">{'開盤: '}</p>
+						<p className="show-detail">{'收盤: '}</p>
+						<p className="show-detail">{'昨收: '}</p>
+						<p className="show-detail">{'漲跌: '}</p>
 						<p className="show-detail">{'最高: '}</p>
 						<p className="show-detail">{'最低: '}</p>
 						<p className="show-detail">{'成交: '}</p>
@@ -136,9 +140,18 @@ class ShowStockComponent extends Component {
 					</div>
 				</div>
 			)		
-		} else
+		} else if (fetchFlag)
 			return (
-				<div>					
+				<div>			
+					<div className="icono-reset refresh" />		
+					<div className="container svg-container">
+						<svg width="100%" height="100%" />
+					</div>
+				</div>
+			)
+		else
+			return (
+				<div>									
 					<div className="container svg-container">
 						<svg width="100%" height="100%" />
 					</div>

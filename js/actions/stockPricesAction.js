@@ -1,5 +1,6 @@
 export const fetchStockPrices = stockInfo =>
-	dispatch =>
+	dispatch => {
+		dispatch(addFetchFlag())
 		fetch(`https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20html%20where%20url%3D%27http%3A%2F%2Fichart.yahoo.com%2Ftable.csv%3Fs%3D${stockInfo.symbol}${stockInfo.marketAlias}%27&format=json`)
 			.then(response => response.json())
 			.then(json => {
@@ -23,15 +24,27 @@ export const fetchStockPrices = stockInfo =>
 						}
 					}
 
-					for (let i = 0; i < stockPrices.length-1; i++)
-						stockPrices[i].gain = (stockPrices[i].close - stockPrices[i+1].close).toFixed(2) / 1					
+					for (let i = 0; i < stockPrices.length-1; i++) {
+						stockPrices[i].gain = (stockPrices[i].close - stockPrices[i+1].close).toFixed(2) / 1	
+						stockPrices[i].prevClose = stockPrices[i+1].close		
+					}
 											
 					stockPrices.pop()
 					
 					dispatch(addStockPrices(stockPrices, stockInfo))
+					dispatch(removeFetchFlag())
 					dispatch(setShowPrices())
 				}
 			})
+	}
+
+export const addFetchFlag = () => ({
+	type: 'ADD_FETCH_FLAG'
+})
+
+export const removeFetchFlag = () => ({
+	type: 'REMOVE_FETCH_FLAG'
+})
 
 export const addStockPrices = (stockPrices, stockInfo) => ({
 	type: 'ADD_STOCK_PRICES',

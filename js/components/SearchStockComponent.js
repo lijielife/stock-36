@@ -35,7 +35,7 @@ class SearchStockComponent extends Component {
 			)
 		else
 			return (
-				<div className="icono-reset refresh"></div>
+				<div className="icono-reset refresh" />
 			)
 	}
 }

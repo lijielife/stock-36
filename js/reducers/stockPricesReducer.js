@@ -1,5 +1,13 @@
 const stockPricesReducer = (state = {}, action) => {
 	switch (action.type) {
+		case 'ADD_FETCH_FLAG':
+			return Object.assign({}, state, {
+				fetchFlag: true
+			})
+		case 'REMOVE_FETCH_FLAG':
+			return Object.assign({}, state, {
+				fetchFlag: false
+			})
 		case 'ADD_STOCK_PRICES':
 			return Object.assign({}, state, {
 				stockPrices: action.stockPrices,
@@ -32,6 +40,7 @@ const stockPricesReducer = (state = {}, action) => {
 		}	
 		case 'RESET_SHOW_PRICES':
 			return Object.assign({}, {
+				fetchFlag: state.fetchFlag,
 				lineCount: state.lineCount
 			})
 		case 'SET_PRICE_DETAIL': {
