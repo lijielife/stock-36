@@ -11,7 +11,7 @@ class SearchStockComponent extends Component {
 	componentDidUpdate() {		
 		const { stockInfosReducer, fetchStockPrices, resetMatches, resetShowPrices } = this.props, { filter, matches } = stockInfosReducer
 		
-		if (matches.length == 1 && filter == matches[0].symbol) {
+		if (matches.length == 1 && (filter == matches[0].symbol || filter == matches[0].name)) {
 			resetMatches()
 			fetchStockPrices(matches[0])	
 		} else 
@@ -29,7 +29,7 @@ class SearchStockComponent extends Component {
 		if (stockInfos.length)
 			return (		
 				<div className="container filter-container">
-					<input className="filter-input" value={filter} onChange={e => this.filterStockInfos(e.target.value.trim())} />	
+					<input className="filter-input" placeholder="請輸入股票代碼或名稱" value={filter} onChange={e => this.filterStockInfos(e.target.value.trim())} />	
 					<FilterStockContainer />				
 				</div>					
 			)

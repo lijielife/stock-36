@@ -10,7 +10,7 @@ const stockInfosReducer = (state = {stockInfos: [], filter: '', matches: []}, ac
 			if (action.filter) 
 				state.stockInfos.map(stockInfo => {
 					let patt = new RegExp(`^${action.filter}`)
-					if (patt.test(stockInfo.symbol))
+					if (patt.test(stockInfo.symbol) || patt.test(stockInfo.name))
 						matches.push(stockInfo)
 				})			
 
