@@ -1,4 +1,4 @@
-const stockPricesReducer = (state = {stockPrices: []}, action) => {
+const stockPricesReducer = (state = {}, action) => {
 	switch (action.type) {
 		case 'ADD_STOCK_PRICES':
 			return Object.assign({}, state, {
@@ -13,7 +13,7 @@ const stockPricesReducer = (state = {stockPrices: []}, action) => {
 		case 'SET_SHOW_PRICES':	{		
 			const { stockPrices, start, lineCount } = state
 
-			if (stockPrices.length) {
+			if (stockPrices) {
 				let showPrices = [], highest = 0, lowest = 100000
 
 				for (let i = start; i < start + lineCount; i++) {
@@ -34,6 +34,18 @@ const stockPricesReducer = (state = {stockPrices: []}, action) => {
 			return Object.assign({}, {
 				lineCount: state.lineCount
 			})
+		case 'SET_PRICE_DETAIL': {
+			let priceDetail
+
+			state.showPrices.map(showPrice => {
+				if (showPrice.date == action.detailDate) 
+					priceDetail = showPrice				
+			})
+
+			return Object.assign({}, state, {
+				priceDetail: priceDetail
+			})		
+		}
 		default:
 			return state
 	}

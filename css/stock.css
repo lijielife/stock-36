@@ -73,22 +73,36 @@
 }
 
 .svg-rise {
-	fill: #FF3333;
+	fill: #CC0000;
+	opacity: .3;
 }
 
 .svg-fall {
-	fill: #33FF33;
+	fill: #227700;
+	opacity: .3;
 }
 
 .svg-flat {
-	fill: #888888;
+	fill: #666666;
+	opacity: .3;
 }
 
 .svg-remaining {
 	fill: #FFFFFF;
 }
 
+.svg-remaining-focus {
+	fill: #DDDDDD;
+}
+
+.svg-focus {
+	opacity: 1;
+}
+
 @media screen and (max-width: 767px) {
+	/*body {
+		background: green;
+	}*/
 	.container {
 		width: 80%;
 		margin-left: 10%;
@@ -96,22 +110,43 @@
 }
 
 @media (min-width: 768px) {
+	/*body {
+		background: yellow;
+	}*/
 	.container {
 		width: 70%;
 		margin-left: 15%;
 	}
+	.show-detail {
+		width: 50%;
+		display: inline-block;
+	}
 }
 
 @media (min-width: 992px) {
+	/*body {
+		background: red;
+	}*/
 	.container {
 		width: 50%;
 		margin-left: 25%;
 	}
+	.show-detail {
+		width: 50%;
+		display: inline-block;
+	}
 }
 
 @media (min-width: 1200px) {
+	/*body {
+		background: pink;
+	}*/
 	.container {
 		width: 40%;
 		margin-left: 30%;
 	} 
+	.show-detail {
+		width: 30%;
+		display: inline-block;
+	}
 }

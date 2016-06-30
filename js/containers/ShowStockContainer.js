@@ -1,5 +1,5 @@
 import { connect } from 'react-redux'
-import { setLineCount, setShowPrices } from '../actions/stockPricesAction'
+import { setLineCount, setShowPrices, setPriceDetail } from '../actions/stockPricesAction'
 import ShowStockComponent from '../components/ShowStockComponent'
 
 const mapStateToProps = state => ({
@@ -8,7 +8,8 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
 	setLineCount: lineCount => dispatch(setLineCount(lineCount)),
-	setShowPrices: () => dispatch(setShowPrices())
+	setShowPrices: () => dispatch(setShowPrices()),
+	setPriceDetail: detailDate => dispatch(setPriceDetail(detailDate))
 })
 
 const ShowStockContainer = connect(

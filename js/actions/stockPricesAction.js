@@ -23,9 +23,9 @@ export const fetchStockPrices = stockInfo =>
 						}
 					}
 
-					for (let i = 0; i < stockPrices.length-1; i++) {
-						stockPrices[i].gain = (stockPrices[i].close - stockPrices[i+1].close).toFixed(2)
-					}
+					for (let i = 0; i < stockPrices.length-1; i++)
+						stockPrices[i].gain = (stockPrices[i].close - stockPrices[i+1].close).toFixed(2) / 1					
+											
 					stockPrices.pop()
 					
 					dispatch(addStockPrices(stockPrices, stockInfo))
@@ -50,4 +50,9 @@ export const setShowPrices = () => ({
 
 export const resetShowPrices = () => ({
 	type: 'RESET_SHOW_PRICES'
+})
+
+export const setPriceDetail = detailDate => ({
+	type: 'SET_PRICE_DETAIL',
+	detailDate: detailDate
 })
