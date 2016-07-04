@@ -1,4 +1,3 @@
-const path = require("path")
 const webpack = require("webpack")
 
 module.exports = {
@@ -28,8 +27,7 @@ module.exports = {
         new webpack.DefinePlugin({
             "process.env": {
                 NODE_ENV: JSON.stringify("production")
-            },
-            __HOST__: JSON.stringify("localhost:8000")
+            }
         }),
         new webpack.optimize.UglifyJsPlugin({
             compress: {

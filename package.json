@@ -1,7 +1,7 @@
 {
-  "name": "stock-backtesting",
+  "name": "stock-prices",
   "version": "1.0.0",
-  "description": "Stock backtesting.",
+  "description": "Stock prices.",
   "scripts": {
     "pro": "webpack --progress --config webpack.config.pro.js",
     "dev": "webpack-dev-server --progress --inline --hot --devtool cheap-module-eval-source-map",

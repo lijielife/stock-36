@@ -31,8 +31,5 @@ module.exports = {
     },
     "plugins": [
         "react"
-    ],
-    "globals": {
-        "__HOST__": true
-    }
+    ]
 }
